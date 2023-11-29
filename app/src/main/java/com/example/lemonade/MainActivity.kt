@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent{
             LemonadeTheme {
-            LemonApp()
+                LemonApp()
             }
         }
     }
@@ -53,104 +53,69 @@ fun LemonApp() {
     ) {
         when (lemonadeStep) {
             1 -> {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    Text(
-                        text = stringResource(R.string.lemon_tree_title),
-                        fontSize = 18.sp
-                    )
-                    Spacer(modifier = Modifier.height(32.dp))
-                    Image(
-                        painter = painterResource(R.drawable.lemon_tree),
-                        contentDescription = stringResource(R.string.lemon_tree_title),
-                        modifier = Modifier
-                            .clickable {
-                                lemonadeStep = 2
-                            }
-                            .background(Color.Yellow)
-                            .wrapContentSize()
-
-                    )
-                }
+                LemonadeDisplay(
+                    imageResource = painterResource(R.drawable.lemon_tree) ,
+                    title = stringResource(R.string.lemon_tree_title),
+                    description = stringResource(R.string.lemon_tree_title) , modifier = Modifier.clickable { lemonadeStep =2})
             }
 
             2 -> {
                 var taps = (2..4).random()
                 var count = 0
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    Text(text = stringResource(R.string.lemon_title))
-                    Spacer(modifier = Modifier.height(32.dp))
-                    Image(painter = painterResource(R.drawable.lemon_squeeze),
-                        contentDescription = stringResource(R.string.lemon_title),
-                        modifier = Modifier.clickable {
-                            count++
-                            if (count == taps) {
-                                lemonadeStep = 3
-                                count = 0
-                            }
-                        })
-                }
+                LemonadeDisplay(
+                    imageResource = painterResource(R.drawable.lemon_squeeze),
+                    title = stringResource(R.string.lemon_tap_title),
+                    description = stringResource(R.string.lemon_description),
+                    modifier = Modifier.clickable {
+                        count++
+                        if (count == taps) {
+                            lemonadeStep = 3
+                            count = 0
+                        }
+                    })
             }
 
             3 -> {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    Text(
-                        text = stringResource(R.string.drink_lemonade),
-                        fontSize = 18.sp
-                    )
-                    Spacer(modifier = Modifier.height(32.dp))
-                    Image(
-                        painter = painterResource(R.drawable.lemon_drink),
-                        contentDescription = stringResource(R.string.glass_of_lemonade_title),
-                        modifier = Modifier
-                            .clickable {
-                                lemonadeStep = 4
-                            }
-                            .background(Color.Yellow)
-                            .wrapContentSize()
-
-                    )
-                }
+                LemonadeDisplay(
+                    imageResource = painterResource(R.drawable.lemon_drink) ,
+                    title = stringResource(R.string.lemonade_glass_title),
+                    description = stringResource(R.string.glass_of_lemonade_description),
+                    modifier = Modifier.clickable { lemonadeStep = 4 })
             }
 
             4 -> {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center,
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    Text(
-                        text = stringResource(R.string.start_over_again),
-                        fontSize = 18.sp
-                    )
-                    Spacer(modifier = Modifier.height(32.dp))
-                    Image(
-                        painter = painterResource(R.drawable.lemon_restart),
-                        contentDescription = stringResource(R.string.empty_glass_title),
-                        modifier = Modifier
-                            .clickable {
-                                lemonadeStep = 1
-                            }
-                            .background(Color.Yellow)
-                            .wrapContentSize()
-
-                    )
-
-                }
+                LemonadeDisplay(
+                    imageResource = painterResource(R.drawable.lemon_restart) ,
+                    title = stringResource(R.string.empty_glass_title),
+                    description = stringResource(R.string.empty_glass_description),
+                    modifier = Modifier.clickable { lemonadeStep = 1 })
             }
 
         }
+    }
+}
+
+@Composable
+fun LemonadeDisplay(modifier: Modifier = Modifier, imageResource: Painter, title: String, description: String){
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+        modifier = modifier.fillMaxSize()
+    ) {
+        Text(
+            text = title,
+            fontSize = 18.sp
+        )
+        Spacer(modifier = modifier.height(32.dp))
+        Image(
+            painter =imageResource,
+            contentDescription = description,
+            modifier = Modifier
+                .background(Color.Yellow)
+                .wrapContentSize()
+
+        )
+
     }
 }
 
