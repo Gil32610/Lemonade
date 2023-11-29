@@ -154,8 +154,8 @@ fun LemonadeDisplay(
         Box(modifier = modifier){
             Button(
                 onClick = onImageClick,
-                shape = RoundedCornerShape(dimensionResource(R.dimen.button_corner_radius)),
-                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.tertiaryContainer)
+                shape = RoundedCornerShape(20.dp),
+                colors = ButtonDefaults.buttonColors(Color(105,205,216))
             ){
                 Image(
                     painter =imageResource,
@@ -163,7 +163,6 @@ fun LemonadeDisplay(
                     modifier = Modifier
                         .size(200.dp)
                         .clip(RoundedCornerShape(4.dp))
-                        .padding(16.dp)
 
                 )
             }
