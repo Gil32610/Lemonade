@@ -23,7 +23,9 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -58,11 +60,17 @@ class MainActivity : ComponentActivity() {
 
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LemonApp() {
     var lemonadeStep by remember { mutableStateOf(1) }
+    var count by remember {
+        mutableStateOf(0)
+    }
+
     Surface(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize()
+           ,
         color = MaterialTheme.colorScheme.background
     ) {
         when (lemonadeStep) {
@@ -76,7 +84,6 @@ fun LemonApp() {
 
             2 -> {
                 var taps = (2..4).random()
-                var count = 0
                 LemonadeDisplay(
                     imageResource = painterResource(R.drawable.lemon_squeeze),
                     title = stringResource(R.string.lemon_tap_title),
@@ -114,6 +121,7 @@ fun LemonApp() {
 
         }
     }
+
 }
 
 @Composable
@@ -125,16 +133,16 @@ fun LemonadeDisplay(
     onImageClick: () -> Unit){
 
     Row(
-    verticalAlignment = Alignment.Top,
-    horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.Top,
+        horizontalArrangement = Arrangement.Center,
     ){
-    Text(
-        text = stringResource(R.string.app_name),
-        modifier = Modifier,
-        fontSize = 32.sp,
-        textAlign = TextAlign.Center
-    )
-}
+        Text(
+            text = stringResource(R.string.app_name),
+            modifier = Modifier,
+            fontSize = 32.sp,
+            textAlign = TextAlign.Center
+        )
+    }
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -148,7 +156,7 @@ fun LemonadeDisplay(
                 onClick = onImageClick,
                 shape = RoundedCornerShape(dimensionResource(R.dimen.button_corner_radius)),
                 colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.tertiaryContainer)
-                ){
+            ){
                 Image(
                     painter =imageResource,
                     contentDescription = description,
